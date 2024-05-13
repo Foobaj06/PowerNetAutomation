@@ -1,0 +1,216 @@
+Building configuration...
+!version 6
+hostname NIC-SW3
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO PlantIO SWI*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.20 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end

@@ -1,0 +1,84 @@
+import netmiko
+import getpass
+import datetime
+import logging
+import os
+
+# Enable logging for debugging purposes
+logging.basicConfig(filename="netmiko_debug.log", level=logging.DEBUG)
+logger = logging.getLogger("netmiko")
+
+def backup_configuration(conn, filename):
+    conn.enable()
+    # Disable terminal pagination
+    conn.send_command("terminal length 0")
+
+    # Retrieve the running configuration
+    config = conn.send_command("show running-config", expect_string=r"#")
+
+    # Re-enable terminal pagination (optional)
+    conn.send_command("terminal length 24")
+
+    with open(filename, 'w') as file:
+        file.write(config)
+
+
+
+def restore_configuration(conn, filename):
+    conn.enable()
+
+    if not os.path.isfile(filename):
+        print(f"Error: File '{filename}' not found.")
+        return
+
+    with open(filename, 'r') as file:
+        config_lines = file.read().strip().splitlines()
+
+    errors_occurred = False
+    for line in config_lines:
+        if line.strip() == "" or line.strip().startswith("!"):
+            continue
+
+        try:
+            conn.send_command(line, expect_string=r"#", delay_factor=2)
+        except Exception as e:
+            print(f"Error sending command {line}: {str(e)}")
+            errors_occurred = True
+
+    try:
+        conn.exit_config_mode()
+    except ValueError:
+        print("Manual attempt to exit configuration mode")
+        conn.send_command('end', expect_string=r"#")
+
+    if not errors_occurred:
+        print(f"Configuration restored from {filename}")
+    else:
+        print(f"Configuration restored with errors from {filename}")
+
+
+
+
+def main():
+    device = {
+        'device_type': 'generic',
+        'host': '10.1.100.30',
+        'username': 'admin',
+        'password': getpass.getpass("Enter your device password: "),
+            }
+
+    action = input("Enter 'backup' or 'restore': ").strip().lower()
+    filename = f"config_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt" if action == 'backup' else input("Enter filename to restore: ")
+
+    with netmiko.ConnectHandler(**device) as conn:
+        if action == 'backup':
+            backup_configuration(conn, filename)
+            print(f"Configuration backed up to {filename}")
+        elif action == 'restore':
+            restore_configuration(conn, filename)
+            print(f"Configuration restored from {filename}")
+        else:
+            print("Invalid action. Please enter 'backup' or 'restore'.")
+
+if __name__ == "__main__":
+    main()

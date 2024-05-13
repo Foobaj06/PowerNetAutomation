@@ -1,0 +1,81 @@
+BEGIN
+    Initialize logger
+    Setup logger properties:
+        Set log level to INFO
+        Configure log file with rotation properties
+
+    Define network device configuration:
+        Device type, host IP, username, and prompt for password
+
+    Set monitoring interval and define interface ranges
+
+    Connect to network device using netmiko
+
+    WHILE true DO
+        TRY
+            Monitor network interfaces:
+                Send command to get interface status
+                Split output into lines
+                FOR each line in output starting from third line DO
+                    Split line into parts
+                    Extract interface name and status
+                    Log interface status to file
+                    IF status is 'down' THEN
+                        Log warning and notify admin
+                    END IF
+                END FOR
+            Log completion of status check
+        CATCH ReadTimeout exception THEN
+            Log timeout error
+        CATCH General exception THEN
+            Log the error
+        END TRY
+
+        Sleep for set interval before next check
+    END WHILE
+END
+
+
+
+
+
+
+
+
+
+Function setup_logger
+    Initialize logger 'NetworkStatusLogger' with INFO level
+    Create a rotating log file 'interface_status.log' with a maximum size and backup count
+    Set log format to include timestamp, severity, and message
+    Attach handler to logger
+    Return logger
+
+Function notify_admin
+    Input: logger, message
+    Display message
+    Log message as a warning using logger
+
+Function monitor_interfaces
+    Input: connection, interface ranges, logger
+    For each range in interface ranges
+        Send command to fetch status for the range
+        Split the output into lines
+        For each line from the third line onwards
+            Extract interface name and status
+            Log the interface status
+            If the status is 'down'
+                Call notify_admin to log and alert about the down status
+
+Function main
+    Set up logger
+    Define device details (type, host, username, password)
+    Define interface ranges to monitor
+    Connect to the device using credentials
+    Repeat indefinitely at 60-second intervals
+        Monitor interfaces
+        Handle timeouts and log them
+        Handle other exceptions and log them
+    Disconnect after monitoring (implicit in with block)
+
+If script is run directly
+    Call main function

@@ -1,0 +1,70 @@
+Begin
+    Initialize logging system
+    Set log file with rotation and format settings
+
+    Prompt for network device password
+
+    Define list of devices with their properties:
+        - Device type
+        - Host IP
+        - Username
+        - Use the provided password for all
+
+    Define backup_config function for a single device:
+        Try
+            Establish connection to the device using credentials
+            Disable pagination to capture full configuration
+            Retrieve the current running configuration
+            Enable pagination back to normal
+            Generate a filename using the device's IP and the current timestamp
+            Save the configuration to the file
+            Log success message indicating the backup was saved
+        Catch any exceptions during the process:
+            Log the error with device information
+
+    Define backup_all_configs function to handle multiple devices:
+        Record start time
+        Use ThreadPoolExecutor to manage parallel execution:
+            Map backup_config function across all devices
+        Calculate total time taken for the backup process
+        Log the total time
+        Return backup results and the total time
+
+    Main execution block:
+        Call backup_all_configs function
+        Print backup results and total time
+
+End
+
+
+
+
+Function get_password
+    Prompt user for the password applicable to all devices
+    Return password
+
+Function backup_config(device)
+    Establish connection to the device using credentials
+    Enter privileged mode
+    Disable terminal pagination
+    Fetch the running configuration
+    Re-enable terminal pagination
+    Generate a timestamped filename for backup
+    Write the configuration to a file
+    Log the backup success
+    Return backup status message
+
+Function backup_all_configs
+    Record start time
+    Use a ThreadPoolExecutor to perform backup_config in parallel across all devices
+    Calculate total time taken for the backup process
+    Log the total time taken
+    Return results and total time
+
+Function main
+    Get password from user and set it for all devices
+    Call backup_all_configs
+    Print results and the total time taken for backups
+
+If script is executed as the main module
+    Call main function

@@ -1,0 +1,181 @@
+2024-05-06 18:17:00,410 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:17:00,410 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:17:00,410 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:17:00,435 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:17:01,104 - INFO - Authentication (password) successful!
+2024-05-06 18:17:01,104 - INFO - Authentication (password) successful!
+2024-05-06 18:17:01,104 - INFO - Authentication (password) successful!
+2024-05-06 18:17:01,104 - INFO - Authentication (password) failed.
+2024-05-06 18:17:01,113 - ERROR - Failed to backup 10.1.100.10: Authentication to device failed.
+
+Common causes of this problem are:
+1. Invalid username and password
+2. Incorrect SSH-key file
+3. Connecting to the wrong device
+
+Device settings: generic 10.1.100.10:22
+
+
+Authentication failed.
+2024-05-06 18:17:11,370 - ERROR - Failed to backup 10.1.100.20: 
+Pattern not detected: 'NIC\\-SW3\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:17:11,375 - ERROR - Failed to backup 10.1.100.40: 
+Pattern not detected: 'PlantIO\\-SW1\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:17:11,396 - ERROR - Failed to backup 10.1.100.30: 
+Pattern not detected: 'PlantIO\\-SW2\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:17:11,397 - INFO - Total time taken for backups: 11.03 seconds
+2024-05-06 18:18:09,071 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:18:09,072 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:18:09,072 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:18:09,079 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:18:09,764 - INFO - Authentication (password) successful!
+2024-05-06 18:18:09,765 - INFO - Authentication (password) successful!
+2024-05-06 18:18:09,765 - INFO - Authentication (password) successful!
+2024-05-06 18:18:09,765 - INFO - Authentication (password) successful!
+2024-05-06 18:18:20,069 - ERROR - Failed to backup 10.1.100.30: 
+Pattern not detected: 'PlantIO\\-SW2\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:18:20,086 - ERROR - Failed to backup 10.1.100.40: 
+Pattern not detected: 'PlantIO\\-SW1\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:18:20,087 - ERROR - Failed to backup 10.1.100.10: 
+Pattern not detected: 'NIC\\-SW1\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:18:20,089 - ERROR - Failed to backup 10.1.100.20: 
+Pattern not detected: 'NIC\\-SW3\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:18:20,098 - INFO - Total time taken for backups: 11.07 seconds
+2024-05-06 18:26:45,174 - ERROR - Failed to backup 10.1.100.10: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:26:45,175 - ERROR - Failed to backup 10.1.100.20: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:26:45,177 - ERROR - Failed to backup 10.1.100.30: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:26:45,178 - ERROR - Failed to backup 10.1.100.40: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:26:45,197 - INFO - Total time taken for backups: 0.03 seconds
+2024-05-06 18:26:57,476 - ERROR - Failed to backup 10.1.100.10: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:26:57,477 - ERROR - Failed to backup 10.1.100.20: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:26:57,478 - ERROR - Failed to backup 10.1.100.30: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:26:57,480 - ERROR - Failed to backup 10.1.100.40: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:26:57,500 - INFO - Total time taken for backups: 0.03 seconds
+2024-05-06 18:29:29,998 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:29:29,998 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:29:29,998 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:29:30,006 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:29:30,689 - INFO - Authentication (password) successful!
+2024-05-06 18:29:30,722 - INFO - Authentication (password) successful!
+2024-05-06 18:29:30,723 - INFO - Authentication (password) successful!
+2024-05-06 18:29:30,723 - INFO - Authentication (password) successful!
+2024-05-06 18:29:40,800 - ERROR - Failed to backup 10.1.100.40: 
+Pattern not detected: '\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:29:40,847 - ERROR - Failed to backup 10.1.100.20: 
+Pattern not detected: '\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:29:40,849 - ERROR - Failed to backup 10.1.100.30: 
+Pattern not detected: '\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:29:40,853 - ERROR - Failed to backup 10.1.100.10: 
+Pattern not detected: '\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+2024-05-06 18:29:40,856 - INFO - Total time taken for backups: 10.88 seconds
+2024-05-06 18:33:09,555 - ERROR - Failed to backup 10.1.100.10: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:33:09,556 - ERROR - Failed to backup 10.1.100.20: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:33:09,557 - ERROR - Failed to backup 10.1.100.30: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:33:09,558 - ERROR - Failed to backup 10.1.100.40: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:33:09,565 - INFO - Total time taken for backups: 0.01 seconds
+2024-05-06 18:33:23,609 - ERROR - Failed to backup 10.1.100.10: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:33:23,610 - ERROR - Failed to backup 10.1.100.20: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:33:23,612 - ERROR - Failed to backup 10.1.100.30: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:33:23,613 - ERROR - Failed to backup 10.1.100.40: BaseConnection.__init__() got an unexpected keyword argument 'expect_string'
+2024-05-06 18:33:23,625 - INFO - Total time taken for backups: 0.02 seconds
+2024-05-06 18:37:43,771 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:37:43,772 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:37:43,772 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:37:43,772 - INFO - Connected (version 2.0, client 0.00)
+2024-05-06 18:37:44,463 - INFO - Authentication (password) successful!
+2024-05-06 18:37:44,464 - INFO - Authentication (password) successful!
+2024-05-06 18:37:44,465 - INFO - Authentication (password) successful!
+2024-05-06 18:37:44,511 - INFO - Authentication (password) successful!
+2024-05-06 18:37:45,555 - INFO - Backup for 10.1.100.30 saved as 10.1.100.30_backup_20240506_183745.txt
+2024-05-06 18:37:45,604 - INFO - Backup for 10.1.100.10 saved as 10.1.100.10_backup_20240506_183745.txt
+2024-05-06 18:37:45,613 - INFO - Backup for 10.1.100.40 saved as 10.1.100.40_backup_20240506_183745.txt
+2024-05-06 18:37:45,735 - INFO - Backup for 10.1.100.20 saved as 10.1.100.20_backup_20240506_183745.txt
+2024-05-06 18:37:45,736 - INFO - Total time taken for backups: 1.98 seconds

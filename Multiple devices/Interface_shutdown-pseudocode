@@ -1,0 +1,32 @@
+Function setup_logging
+    Configure basic logging with file name, level, and format
+
+Function list_devices
+    Display a list of devices with their description and host
+
+Function get_device_passwords
+    Prompt user to enter passwords for each device and store them in the devices list
+
+Function shutdown_ports(connection)
+    Input: connection to a network device
+    Enable privileged mode on the device
+    Enter configuration terminal mode
+    Prompt user to input the range of ports to shutdown
+    Execute commands to shutdown the specified port range
+    Print confirmation of port shutdown
+    Exit configuration terminal mode
+
+Function perform_shutdown(device)
+    Filter device information for connection
+    Establish a connection to the device
+    Call shutdown_ports function with the connection
+
+Function main
+    Setup logging
+    List available devices
+    Prompt user to choose a device
+    Get passwords for the device
+    Perform shutdown on the selected device
+
+If script is executed as the main module
+    Call main function

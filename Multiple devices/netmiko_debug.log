@@ -1,0 +1,8203 @@
+DEBUG:paramiko.transport:starting thread (client mode): 0x25d1f230
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.10: b'06e361ab232842e56f00aa7608d44e0e'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW1# 
+NIC-SW1# 
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 10
+ name Workstation
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+!
+interface Port 1/3
+ no shutdown
+!
+interface Port 1/4
+ no shutdown
+!
+interface Port 1/5
+ no shutdown
+!
+interface Port 1/6
+ no shutdown
+!
+interface Port 1/7
+ no shutdown
+!
+interface Port 1/8
+ no shutdown
+!
+interface Port 1/9
+ switchport access vlan 30
+ description *LINK TO COMMON C30*
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO PlantIO SW2*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ switchport mode trunk
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ switchport mode trunk
+ speed 1000
+ duplex full
+ description *LINK TO ROUTER*
+ no shutdown
+!
+interface Port 1/22
+ switchport access vlan 10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ no shutdown
+!
+interface Port 1/23
+ switchport access vlan 10
+ description *LINK TO WORKSTATION*
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.10 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x2564c830
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.20: b'9f66875345c07c2ce20ddc7be689dc37'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW3# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+NIC-SW3# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW3
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO PlantIO SWI*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.20 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x25dc5a60
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.30: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW2# 
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW2
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO NIC_SW1*
+ no shutdown
+!
+interface Port 1/11
+ no shutdown
+!
+interface Port 1/12
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO VALVE COOLING RTU/PLC*
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.30 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x25e45ee0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.40: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+PlantIO-SW1# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO NIC_SW3*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description **
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ speed 100
+ description *LINK TO C30*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.40 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0xc2be10a0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.10: b'06e361ab232842e56f00aa7608d44e0e'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW1# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+NIC-SW1# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 10
+ name Workstation
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+!
+interface Port 1/3
+ no shutdown
+!
+interface Port 1/4
+ no shutdown
+!
+interface Port 1/5
+ no shutdown
+!
+interface Port 1/6
+ no shutdown
+!
+interface Port 1/7
+ no shutdown
+!
+interface Port 1/8
+ no shutdown
+!
+interface Port 1/9
+ switchport access vlan 30
+ description *LINK TO COMMON C30*
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO PlantIO SW2*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ switchport mode trunk
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ switchport mode trunk
+ speed 1000
+ duplex full
+ description *LINK TO ROUTER*
+ no shutdown
+!
+interface Port 1/22
+ switchport access vlan 10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ no shutdown
+!
+interface Port 1/23
+ switchport access vlan 10
+ description *LINK TO WORKSTATION*
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.10 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0xc2c9ff20
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.20: b'9f66875345c07c2ce20ddc7be689dc37'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW3# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+NIC-SW3# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW3
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO PlantIO SWI*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.20 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0xc2b16e40
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.30: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW2# 
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+PlantIO-SW2# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW2
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO NIC_SW1*
+ no shutdown
+!
+interface Port 1/11
+ no shutdown
+!
+interface Port 1/12
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO VALVE COOLING RTU/PLC*
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.30 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0xc2c9ff20
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.40: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW1# 
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO NIC_SW3*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description **
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ speed 100
+ description *LINK TO C30*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.40 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x4cffc500
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.10: b'06e361ab232842e56f00aa7608d44e0e'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW1# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+NIC-SW1# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 10
+ name Workstation
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+!
+interface Port 1/3
+ no shutdown
+!
+interface Port 1/4
+ no shutdown
+!
+interface Port 1/5
+ no shutdown
+!
+interface Port 1/6
+ no shutdown
+!
+interface Port 1/7
+ no shutdown
+!
+interface Port 1/8
+ no shutdown
+!
+interface Port 1/9
+ switchport access vlan 30
+ description *LINK TO COMMON C30*
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO PlantIO SW2*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ switchport mode trunk
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ switchport mode trunk
+ speed 1000
+ duplex full
+ description *LINK TO ROUTER*
+ no shutdown
+!
+interface Port 1/22
+ switchport access vlan 10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ no shutdown
+!
+interface Port 1/23
+ switchport access vlan 10
+ description *LINK TO WORKSTATION*
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.10 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x4c928170
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.20: b'9f66875345c07c2ce20ddc7be689dc37'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW3# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+NIC-SW3# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW3
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO PlantIO SWI*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.20 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x4d02c2f0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.30: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW2# 
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW2
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO NIC_SW1*
+ no shutdown
+!
+interface Port 1/11
+ no shutdown
+!
+interface Port 1/12
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO VALVE COOLING RTU/PLC*
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.30 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x4d124e60
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.40: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+PlantIO-SW1# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO NIC_SW3*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description **
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ speed 100
+ description *LINK TO C30*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.40 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x9bae3230
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.10: b'06e361ab232842e56f00aa7608d44e0e'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW1# 
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 10
+ name Workstation
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+!
+interface Port 1/3
+ no shutdown
+!
+interface Port 1/4
+ no shutdown
+!
+interface Port 1/5
+ no shutdown
+!
+interface Port 1/6
+ no shutdown
+!
+interface Port 1/7
+ no shutdown
+!
+interface Port 1/8
+ no shutdown
+!
+interface Port 1/9
+ switchport access vlan 30
+ description *LINK TO COMMON C30*
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO PlantIO SW2*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ switchport mode trunk
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ switchport mode trunk
+ speed 1000
+ duplex full
+ description *LINK TO ROUTER*
+ no shutdown
+!
+interface Port 1/22
+ switchport access vlan 10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ no shutdown
+!
+interface Port 1/23
+ switchport access vlan 10
+ description *LINK TO WORKSTATION*
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.10 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x9b977ce0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.20: b'9f66875345c07c2ce20ddc7be689dc37'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) failed.
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x59045d60
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.10: b'06e361ab232842e56f00aa7608d44e0e'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW1# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+NIC-SW1# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 10
+ name Workstation
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+!
+interface Port 1/3
+ no shutdown
+!
+interface Port 1/4
+ no shutdown
+!
+interface Port 1/5
+ no shutdown
+!
+interface Port 1/6
+ no shutdown
+!
+interface Port 1/7
+ no shutdown
+!
+interface Port 1/8
+ no shutdown
+!
+interface Port 1/9
+ switchport access vlan 30
+ description *LINK TO COMMON C30*
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO PlantIO SW2*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ switchport mode trunk
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ switchport mode trunk
+ speed 1000
+ duplex full
+ description *LINK TO ROUTER*
+ no shutdown
+!
+interface Port 1/22
+ switchport access vlan 10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ no shutdown
+!
+interface Port 1/23
+ switchport access vlan 10
+ description *LINK TO WORKSTATION*
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.10 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x5a9b3d70
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.20: b'9f66875345c07c2ce20ddc7be689dc37'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW3# 
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW3
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO PlantIO SWI*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.20 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x5b6e9eb0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.30: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW2# 
+PlantIO-SW2# 
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW2
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO NIC_SW1*
+ no shutdown
+!
+interface Port 1/11
+ no shutdown
+!
+interface Port 1/12
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO VALVE COOLING RTU/PLC*
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.30 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x5b58f440
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.40: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+PlantIO-SW1# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO NIC_SW3*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description **
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ speed 100
+ description *LINK TO C30*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.40 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0xec5fc770
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.10: b'06e361ab232842e56f00aa7608d44e0e'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW1# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+NIC-SW1# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 10
+ name Workstation
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+!
+interface Port 1/3
+ no shutdown
+!
+interface Port 1/4
+ no shutdown
+!
+interface Port 1/5
+ no shutdown
+!
+interface Port 1/6
+ no shutdown
+!
+interface Port 1/7
+ no shutdown
+!
+interface Port 1/8
+ no shutdown
+!
+interface Port 1/9
+ switchport access vlan 30
+ description *LINK TO COMMON C30*
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO PlantIO SW2*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ switchport mode trunk
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ switchport mode trunk
+ speed 1000
+ duplex full
+ description *LINK TO ROUTER*
+ no shutdown
+!
+interface Port 1/22
+ switchport access vlan 10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ no shutdown
+!
+interface Port 1/23
+ switchport access vlan 10
+ description *LINK TO WORKSTATION*
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.10 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0xec67f3e0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.20: b'9f66875345c07c2ce20ddc7be689dc37'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW3# 
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW3
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO PlantIO SWI*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.20 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0xec5fc380
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.30: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW2# 
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW2
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO NIC_SW1*
+ no shutdown
+!
+interface Port 1/11
+ no shutdown
+!
+interface Port 1/12
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO VALVE COOLING RTU/PLC*
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.30 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0xec62d3d0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.40: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW1# 
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO NIC_SW3*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description **
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ speed 100
+ description *LINK TO C30*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.40 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x1a37cc20
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.10: b'06e361ab232842e56f00aa7608d44e0e'
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW1# 
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+NIC-SW1# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 10
+ name Workstation
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+!
+interface Port 1/3
+ no shutdown
+!
+interface Port 1/4
+ no shutdown
+!
+interface Port 1/5
+ no shutdown
+!
+interface Port 1/6
+ no shutdown
+!
+interface Port 1/7
+ no shutdown
+!
+interface Port 1/8
+ no shutdown
+!
+interface Port 1/9
+ switchport access vlan 30
+ description *LINK TO COMMON C30*
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO PlantIO SW2*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW3*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ switchport mode trunk
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ switchport mode trunk
+ speed 1000
+ duplex full
+ description *LINK TO ROUTER*
+ no shutdown
+!
+interface Port 1/22
+ switchport access vlan 10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,100
+ switchport trunk vlan tag native
+ no shutdown
+!
+interface Port 1/23
+ switchport access vlan 10
+ description *LINK TO WORKSTATION*
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.10 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x1c6b7fe0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.20: b'9f66875345c07c2ce20ddc7be689dc37'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: NIC-SW3# 
+DEBUG:netmiko:Pattern found: (.*) NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: erminal length 0
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) 
+NIC-SW3# terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname NIC-SW3
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO PlantIO SWI*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description *LINK TO CCU*
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ switchport mode trunk
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,100
+ description *LINK TO NIC SW1*
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.20 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+NIC-SW3# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is NIC-SW3#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+NIC-SW3# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x1a812ab0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.30: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW2# 
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: version 6
+hostname PlantIO-SW2
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 30
+ name Station_Bus_Mgmt
+!
+vlan 31
+ name Station_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 30,31,100
+ switchport mode trunk
+ description *LINK TO NIC_SW1*
+ no shutdown
+!
+interface Port 1/11
+ no shutdown
+!
+interface Port 1/12
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ switchport trunk native vlan 30
+ switchport trunk allowed vlan 30,31
+ switchport mode trunk
+ description *LINK TO VALVE COOLING RTU/PLC*
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.30 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW2# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW2#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW2# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread
+DEBUG:paramiko.transport:starting thread (client mode): 0x1c6b7fe0
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_3.4.0
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-0.00
+INFO:paramiko.transport:Connected (version 2.0, client 0.00)
+DEBUG:paramiko.transport:=== Key exchange possibilities ===
+DEBUG:paramiko.transport:kex algos: curve25519-sha256, curve25519-sha256@libssh.org, diffie-hellman-group14-sha256, diffie-hellman-group14-sha1, kexguess2@matt.ucc.asn.au
+DEBUG:paramiko.transport:server key: rsa-sha2-256, ssh-rsa, ssh-dss
+DEBUG:paramiko.transport:client encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:server encrypt: aes128-ctr, aes256-ctr
+DEBUG:paramiko.transport:client mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:server mac: hmac-sha1, hmac-sha2-256
+DEBUG:paramiko.transport:client compress: none
+DEBUG:paramiko.transport:server compress: none
+DEBUG:paramiko.transport:client lang: <none>
+DEBUG:paramiko.transport:server lang: <none>
+DEBUG:paramiko.transport:kex follows: False
+DEBUG:paramiko.transport:=== Key exchange agreements ===
+DEBUG:paramiko.transport:Kex: curve25519-sha256@libssh.org
+DEBUG:paramiko.transport:HostKey: rsa-sha2-256
+DEBUG:paramiko.transport:Cipher: aes128-ctr
+DEBUG:paramiko.transport:MAC: hmac-sha2-256
+DEBUG:paramiko.transport:Compression: none
+DEBUG:paramiko.transport:=== End of kex handshake ===
+DEBUG:paramiko.transport:kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,rsa-sha2-256,ssh-rsa,ssh-dss'}
+DEBUG:paramiko.transport:Adding ssh-rsa host key for 10.1.100.40: b'3588d1164698e0319b7a55914e05bcf1'
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32759 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: PlantIO-SW1# 
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (.*) PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:Clear buffer detects data in the channel
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 0\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 0
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 0) t terminal length 0
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'show running-config\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: s
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  show running-config
+Building configuration...
+!version 6
+hostname PlantIO-SW1
+no password expiration
+username add admin privilege 15 password encrypted $6$gmlhqWXqUfaQxjG/$GUy5RmsWi3R7JrSHCwrMzIFa8OH6Mc8xf1B6YZMBIz0nHdut0BaMp9NhAMs9AuTlDjlc07tv0Zt/XR/52W51p. date 1117
+!
+vlan 20
+ name Process_Bus_Mgmt
+!
+vlan 21
+ name Process_Bus_GOOSE
+!
+vlan 100
+ name Switch_Mgmt
+!
+vlan 1
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.1.100.1
+spanning-tree mode mstp
+spanning-tree mst name GE-MSTP-REGION revision 0
+snmp-server
+snmp-server version v3
+!
+interface Port 1/1
+ no shutdown
+!
+interface Port 1/2
+ no shutdown
+!
+interface Port 1/3
+ speed 100
+ no shutdown
+!
+interface Port 1/4
+ speed 100
+ no shutdown
+!
+interface Port 1/5
+ speed 100
+ no shutdown
+!
+interface Port 1/6
+ speed 100
+ no shutdown
+!
+interface Port 1/7
+ speed 100
+ no shutdown
+!
+interface Port 1/8
+ speed 100
+ no shutdown
+!
+interface Port 1/9
+ no shutdown
+!
+interface Port 1/10
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 20,21,100
+ switchport mode trunk
+ description *LINK TO NIC_SW3*
+ no shutdown
+!
+interface Port 1/11
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ description **
+ no shutdown
+!
+interface Port 1/12
+ switchport trunk native vlan 20
+ switchport trunk allowed vlan 20,21
+ switchport mode trunk
+ speed 100
+ description *LINK TO C30*
+ no shutdown
+!
+interface Port 1/13
+ no shutdown
+!
+interface Port 1/14
+ no shutdown
+!
+interface Port 1/15
+ no shutdown
+!
+interface Port 1/16
+ no shutdown
+!
+interface Port 1/17
+ no shutdown
+!
+interface Port 1/18
+ no shutdown
+!
+interface Port 1/19
+ no shutdown
+!
+interface Port 1/20
+ no shutdown
+!
+interface Port 1/21
+ no shutdown
+!
+interface Port 1/22
+ no shutdown
+!
+interface Port 1/23
+ no shutdown
+!
+interface Port 1/24
+ switchport access vlan 100
+ description *Switch Mgmt*
+ no shutdown
+!
+interface vlan 1
+ ip address 192.168.4.88 255.255.255.0
+!
+interface vlan 100
+ ip address 10.1.100.40 255.255.255.0
+!
+!
+spanning-tree aggregation
+ spanning-tree link-type point-to-point
+!
+!
+line console 0
+!
+line vty 0
+ length 0
+!
+line vty 1
+!
+line vty 2
+!
+line vty 3
+!
+line vty 4
+!
+line vty 5
+!
+line vty 6
+!
+line vty 7
+!
+line vty 8
+!
+line vty 9
+!
+line vty 10
+!
+line vty 11
+!
+line vty 12
+!
+line vty 13
+!
+line vty 14
+!
+line vty 15
+!
+line vty 16
+!
+line vty 17
+!
+line vty 18
+!
+line vty 19
+!
+line vty 20
+!
+line vty 21
+!
+line vty 22
+!
+line vty 23
+!
+line vty 24
+!
+line vty 25
+!
+line vty 26
+!
+line vty 27
+!
+line vty 28
+!
+line vty 29
+!
+line vty 30
+!
+line vty 31
+!
+line vty 32
+!
+line vty 33
+!
+line vty 34
+!
+line vty 35
+!
+line vty 36
+!
+line vty 37
+!
+line vty 38
+!
+line vty 39
+!
+end
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (show\ running\-config) s show running-config
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:write_channel: b'\n'
+DEBUG:netmiko:read_channel: 
+PlantIO-SW1# 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:[find_prompt()]: prompt is PlantIO-SW1#
+DEBUG:netmiko:write_channel: b'terminal length 24\n'
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: t
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel: 
+DEBUG:netmiko:read_channel:  terminal length 24
+PlantIO-SW1# 
+DEBUG:netmiko:Pattern found: (terminal\ length\ 24) t terminal length 24
+DEBUG:netmiko:read_channel: 
+DEBUG:paramiko.transport:EOF in transport thread

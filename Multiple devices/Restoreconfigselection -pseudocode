@@ -1,0 +1,35 @@
+Function setup_logging
+    Configure logging with file name, level, and format
+
+Function list_devices
+    Display a list of devices with descriptions and hosts
+
+Function get_device_passwords
+    Prompt the user to enter passwords for each device and store them
+
+Function restore_configuration(connection, filename)
+    Check if the backup file exists
+    If not, print error and exit function
+    Enter privileged mode on the device
+    Enter configuration terminal mode
+    Read configuration commands from the backup file
+    Loop through each command in the file:
+        If the line is not a comment or empty, execute it on the device
+        Handle errors for each command and log them
+    Attempt to exit configuration mode
+    If errors occurred, log and notify the user; otherwise, confirm restoration success
+
+Function perform_restore(device, filename)
+    Extract necessary device information
+    Establish a connection to the device
+    Call restore_configuration with the connection and filename
+
+Function main
+    Setup logging
+    List devices and allow user selection
+    Get device passwords
+    Prompt for the backup file name
+    Perform configuration restoration for the selected device
+
+If script is executed as the main module
+    Call main function
